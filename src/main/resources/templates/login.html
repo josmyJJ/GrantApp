@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Spring Security Example</title>
-</head>
+<head th:replace="base :: headstuff"></head>
 <body>
+<nav th:replace="base :: navbar"></nav>
+<div class="container m-5">
 <div th:if="${param.error}">
     Invalid username and password.
 </div>
@@ -22,5 +21,8 @@
     </div>
     <div><input type="submit" value="Sign In"/></div>
 </form>
+</div>
+<nav th:replace="base :: footer"></nav>
+<th:block th:replace="base :: jslinks"></th:block>
 </body>
 </html>
