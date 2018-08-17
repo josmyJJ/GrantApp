@@ -1,38 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
-<head th:replace="base :: headstuff"></head>
+<head>
+    <title>Index Page</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
-<div class="container m-5">
-<h2>Welcome to Spring lesson 25</h2>
-<div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.<br />
 
-    <div sec:authorize="hasAuthority('ADMIN')" >
-        This content is only shown to administrators.
+<div class="container m-5" align="center">
+
+    <!--<div class="container bg-light ">-->
+        <!--<div class="my-5 "></div>-->
+        <!--<div class="space5"></div>-->
+
+<h2>List of Courses</h2>
+
+    <div class="space5"></div>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Instructor</th>
+            <th>Credits</th>
+            <td>Actions</td>
+        </tr>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.title}"></td>
+            <td th:text="${course.instructor}"></td>
+            <td th:text="${course.credit}"></td>
+            <td>
+
+                <a class="text-info" th:href="@{/detail/{id}(id=${course.id})}">
+                    Details</a>
+                <!--<span th:if="${course.user.id == user_id}">-->
+                    <!--<a th:href="@{/update/{id}(id=${course.id})}">Update</a> - -->
+                    <!--&lt;!&ndash;<a th:href="@{/delete/{id}(id=${course.id})}">Delete</a>&ndash;&gt;-->
+                <!--</span>-->
+            </td>
+        </tr>
+    </table>
+
+    <div class="space5"></div>
+    <div sec:authorize="isAuthenticated()">
+        <button type="button"
+                class="btn btn-sm btn-info"><a class="text-light"
+                                               href="/add">Add A
+            Courses</a></button>
+        <div class="space5"></div>
     </div>
-    <div sec:authorize="hasAuthority('USER')" >
-        This content is only shown to users.
-    </div>
-    Logged user: <span sec:authentication="name">The value of the "name" property of the authentication object should appear here.</span><br />
-    Roles: <span sec:authentication="principal.authorities">[USER, ADMIN]</span><br /><br />
-</div>
-<div sec:authorize="isAnonymous()">
-    This content is only shown to anonymous users.
-</div>
-
-    <button type="button"
-            class="btn btn-info"><a class="text-light" href="/login">Login</a></button>
-    <button type="button"
-            class="btn btn-info"><a class="text-light" href="/logout">Logout</a></button>
-    <button type="button"
-            class="btn btn-info"><a class="text-light" href="/register">Register</a></button>
-    <button type="button"
-            class="btn btn-info"><a class="text-light" href="/secure">Secure</a></button>
 
 
-</div>
-<nav th:replace="base :: footer"></nav>
+
+    <!--<button sec:authorize="!isAuthenticated()" type="button"-->
+            <!--class="btn btn-info"><a class="text-light" href="/login">Login</a></button>-->
+    <!--<button sec:authorize="isAuthenticated()" type="button"-->
+            <!--class="btn btn-info"><a class="text-light" href="/logout">Logout</a></button>-->
+    <!--<button sec:authorize="!isAuthenticated()" type="button"-->
+            <!--class="btn btn-info"><a class="text-light" href="/register">Register</a></button>-->
+    <!--<button type="button"-->
+            <!--class="btn btn-info"><a class="text-light" href="/secure">Secure</a></button>-->
+
+        <div class="space25"></div>
+    <!--</div>&lt;!&ndash; end bg-light &ndash;&gt;-->
+</div><!-- end container -->
+<div th:replace="base :: footer"></div>
 <th:block th:replace="base :: jslinks"></th:block>
 </body>
 </html>

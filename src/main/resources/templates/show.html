@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Course Details</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
+<body>
+<nav th:replace="base :: navbar"></nav>
+
+<div class="container m-5">
+
+    <!--<div class="container bg-light ">-->
+        <!--<div class="my-5 "></div>-->
+
+        <div class="my-4 py-5" align="center">
+
+            <h2 th:inline="text">[[${course.title}]] Details</h2>
+            <div class="space5"></div>
+
+
+            Title :<span th:text="${course.title}" ></span><br />
+            Instructor :<span th:text="${course.instructor}" ></span><br />
+            Description :<p th:text="${course.description}" ></p>
+            Credits :<span th:text="${course.credit}" ></span><br />
+
+            <div class="space2"></div>
+
+            <button type="button"
+                    class="btn btn-sm btn-info"><a class="text-light" href="/">
+                Show All Courses</a>
+            </button>
+            <span th:if="${course.user.id == user_id}">
+                <button type="button"
+                        class="btn btn-sm btn-success"><a class="text-white"
+                        th:href="@{/update/{id}(id=${course.id})}">Update this
+                    course</a>
+                </button>
+                <button type="button"
+                        class="btn btn-sm btn-danger"><a class="text-white"
+                        th:href="@{/delete/{id}(id=${course.id})}">Delete this
+                    course</a>
+                </button>
+            </span>
+        <!--</div>-->
+
+            <div class="space10"></div>
+            <div class="space5"></div>
+</div>
+</div>
+
+<nav th:replace="base :: footer"></nav>
+<th:block th:replace="base :: jslinks"></th:block>
+</body>
+</html>

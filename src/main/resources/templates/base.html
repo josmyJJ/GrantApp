@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="headstuff">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap 101 Template</title>
+    <title>Lesson25 with course</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Slabo+27px" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
 
     <style>
         body { padding-bottom: 70px; }
@@ -16,30 +21,52 @@
     <![endif]-->
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
-    <a class="navbar-brand" href="/">Lesson25</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+<nav class="navbar navbar-expand-lg " th:fragment="navbar">
+    <a class="navbar-brand text-white" href="/">Lesson25</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">Home <span
-                    class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/login">Login</a>
-            <a class="nav-item nav-link" href="/secure">Secure</a>
+        <div class="navbar-nav ml-auto">
+            <li sec:authorize="isAuthenticated()" class="nav-link text-muted"
+                th:inline="text">
+                Welcome [[${#authentication.name}]]!
+            </li>
+
+            <a sec:authorize="!isAuthenticated()" class="nav-item nav-link text-white"
+               href="/login">Login</a>
+            
+            <a sec:authorize="!isAuthenticated()"
+               class="nav-item nav-link text-white"
+               href="/register">Regester</a>
+
+            <a class="nav-item nav-link text-white" href="/">Home</a>
+
+            <a class="nav-item nav-link text-white" href="/secure">Secure</a>
+
+            <a sec:authorize="isAuthenticated()" class="nav-item nav-link text-white"
+               href="/logout">Logout</a>
         </div>
     </div>
 </nav>
 
-<h1>Hello, world!</h1>
-<nav class="navbar fixed-bottom navbar-light bg-light" th:fragment="footer">
-    <a class="navbar-brand" href="/">Home</a>
-    <a class="navbar-brand" href="/secure">Secure</a>
-    <a href="#">Copyright 2017 - Learning By Coding</a>
-</nav>
+
+<div class="navbar fixed-bottom navbar-light bg-light footer-nav"
+     th:fragment="footer">
+    <a class="text-muted" href="/">Home</a>
+    <a class="text-muted" href="#">&copy; 2018 Josemy Joseph</a>
+    <a class="text-muted" href="/secure">Secure</a>
+
+</div>
 
 <th:block th:fragment="jslinks">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
     </script>
     <script src="/js/bootstrap.js"></script>
 </th:block>

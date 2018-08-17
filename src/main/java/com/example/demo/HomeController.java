@@ -2,13 +2,12 @@ package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -18,6 +17,12 @@ import java.security.Principal;
 public class HomeController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    CourseRepository courseRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model) {
@@ -42,14 +47,13 @@ public class HomeController {
 
 
     @RequestMapping("/")
-    public String index()
-    {
+    public String index(Model model) {
+        model.addAttribute("courses", courseRepository.findAll());
         return "index";
     }
 
     @RequestMapping("/login")
-    public String login()
-    {
+    public String login() {
         return "login";
     }
 
@@ -60,6 +64,48 @@ public class HomeController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = principal.getName();
         return "secure";
+    }
+
+    @GetMapping("/add")
+    public String courseForm(Model model){
+        model.addAttribute("course", new Course());
+        return "courseform";
+    }
+
+    @PostMapping("/process")
+    public String processForm(@Valid Course course, BindingResult result){
+        if (result.hasErrors()){
+            return "courseform";
+        }
+        course.setUser(getUser());
+        courseRepository.save(course);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/detail/{id}")
+    public String showCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("course", courseRepository.findById(id).get());
+        model.addAttribute("user_id", getUser().getId());
+        return "show";
+    }
+
+    @RequestMapping("/update/{id}")
+    public String updateCourse(@PathVariable("id") long id, Model model){
+        model.addAttribute("course", courseRepository.findById(id).get());
+        return "courseform";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String delCourse(@PathVariable("id") long id){
+        courseRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+    private User getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentusername = authentication.getName();
+        User user = userRepository.findByUsername(currentusername);
+        return user;
     }
 
 }

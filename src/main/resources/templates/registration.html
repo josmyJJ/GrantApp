@@ -1,39 +1,88 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container m-5">
 <h4>New User Registration</h4>
-<form autocomplete="off" action="#" th:action="@{/register}" th:object="${user}" method="post">
+    <div class="space2"></div>
 
-    Fisrt Name <mark><strong>
-    <span th:if="${#fields.hasErrors('firstName')}"
-          th:errors="*{firstName}">First Name Error</span></strong></mark>
-    <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}" /><br />
 
-    Last Name <mark><strong>
-    <span th:if="${#fields.hasErrors('lastName')}"
-          th:errors="*{lastName}">Last Name Error</span></strong></mark>
-    <input type="text" id="lasttName" placeholder="Last Name" th:field="*{lastName}" /><br />
 
-    Email <mark><strong>
-    <span th:if="${#fields.hasErrors('email')}"
-          th:errors="*{email}">Email Error</span></strong></mark>
-    <input type="text" id="email" placeholder="Email" th:field="*{email}" /><br />
+    <form action="#"
+          th:action="@{/register}"
+          th:object="${user}"
+          method="post">
 
-    Username <mark><strong>
-    <span th:if="${#fields.hasErrors('username')}"
-          th:errors="*{username}">Username Error</span></strong></mark>
-    <input type="text" id="username" placeholder="Username" th:field="*{username}" /><br />
+        <div class="row">
+            <div class="col-md-6">
 
-    Password <mark><strong>
-    <span th:if="${#fields.hasErrors('password')}"
-          th:errors="*{password}">Password Error</span></strong></mark>
-    <input type="text" id="password" placeholder="Password" th:field="*{password}" /><br />
+        <div class="form-group">
+            <label for="firstName">First Name</label>
 
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+            <span th:if="${#fields.hasErrors('firstName')}"
+                  th:errors="*{firstName}">First Name Error</span></strong>
+
+            <input type="text" class="form-control" id="firstName"
+                   placeholder="Enter first name"
+                   th:field="*{firstName}" >
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+
+            <span th:if="${#fields.hasErrors('lastName')}"
+                  th:errors="*{lastName}">Last Name Error</span></strong>
+
+            <input type="text" class="form-control" id="lastName"
+                   placeholder="Enter last name"
+                   th:field="*{lastName}" >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+
+            <span th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}">Email Error</span></strong>
+
+            <input type="text" class="form-control" id="email"
+                   placeholder="Enter your email"
+                   th:field="*{email}" >
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+
+            <span th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}">Username error</span></strong>
+
+            <input type="text" class="form-control" id="username"
+                   placeholder="Enter your username"
+                   th:field="*{username}" >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+
+            <span th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">Password error</span></strong>
+
+            <input type="text" class="form-control" id="password"
+                   placeholder="Enter your password"
+                   th:field="*{password}" >
+        </div>
+
+        <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="space25"></div>
+    <div class="space25"></div>
 </div>
 <nav th:replace="base :: footer"></nav>
 <th:block th:replace="base :: jslinks"></th:block>

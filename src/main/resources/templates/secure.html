@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<head>
+    <title>Secure</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container m-5">
 <h3>Secure Page</h3>
-<a href="/logout">logout</a>
+    <div class="space25"></div>
+    <div class="space25"></div>
+<!--<a href="/logout">logout</a>-->
 </div>
 <nav th:replace="base :: footer"></nav>
 <th:block th:replace="base :: jslinks"></th:block>

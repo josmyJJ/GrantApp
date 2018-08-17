@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head th:replace="base :: headstuff"></head>
+<head>
+    <title>Error</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
 <body>
 <nav th:replace="base :: navbar"></nav>
 <div class="container">
     <h1>ERROR</h1>
     <br/>
+    <div class="space25"></div>
+    <div class="space25"></div>
 </div>
 <nav th:replace="base :: footer"></nav>
 <th:block th:replace="base :: jslinks"></th:block>
