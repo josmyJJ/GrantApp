@@ -13,16 +13,17 @@
         <!--<div class="my-5 "></div>-->
         <!--<div class="space5"></div>-->
 
-<h2>List of Courses</h2>
+<h2>America's Promise Grant</h2>
 
     <div class="space5"></div>
 
     <table>
         <tr>
-            <th>Title</th>
-            <th>Instructor</th>
+            <!--<th></th>-->
+            <th> Courses </th>
+            <th> Instructor </th>
             <th>Credits</th>
-            <td>Actions</td>
+            <th>Actions</th>
         </tr>
         <tr th:each="course : ${courses}">
             <td th:text="${course.title}"></td>

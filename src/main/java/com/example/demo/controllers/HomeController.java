@@ -1,5 +1,12 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
+import com.example.demo.models.Application;
+import com.example.demo.models.Course;
+import com.example.demo.models.User;
+import com.example.demo.repositories.ApplicationRepository;
+import com.example.demo.repositories.CourseRepository;
+import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +30,9 @@ public class HomeController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationPage(Model model) {
@@ -82,10 +92,27 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/application")
+    public String getApplication(Model model){
+        model.addAttribute("application", new Application());
+        return "application_form";
+    }
+
+    @PostMapping("/processApplication")
+    public String processApplication(@Valid Application application,
+                                     BindingResult result){
+        if(result.hasErrors()){
+            return "application_form";
+        }
+        application.setUser(getUser());
+        applicationRepository.save(application);
+        return "redirect:/";
+    }
+
     @RequestMapping("/detail/{id}")
     public String showCourse(@PathVariable("id") long id, Model model){
         model.addAttribute("course", courseRepository.findById(id).get());
-        model.addAttribute("user_id", getUser().getId());
+//        model.addAttribute("user_id", getUser().getId());
         return "show";
     }
 
