@@ -17,12 +17,6 @@ public class Application {
   @NotNull
   Boolean Accept;
 
-  @NotNull
-  Boolean Reject;
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_id")
-  private User user;
 
   public long getId() {
     return id;
@@ -48,19 +42,4 @@ public class Application {
     Accept = accept;
   }
 
-  public Boolean getReject() {
-    return Reject;
-  }
-
-  public void setReject(Boolean reject) {
-    Reject = reject;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
 }

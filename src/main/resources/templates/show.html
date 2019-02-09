@@ -7,7 +7,7 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 
-<div class="container m-5">
+<div class="container m-5"  align="center">
 
     <!--<div class="container bg-light ">-->
         <!--<div class="my-5 "></div>-->
@@ -19,32 +19,26 @@
 
 
             Title :<span th:text="${course.title}" ></span><br />
-            Instructor :<span th:text="${course.instructor}" ></span><br />
             Description :<p th:text="${course.description}" ></p>
-            Credits :<span th:text="${course.credit}" ></span><br />
 
             <div class="space2"></div>
 
-            <button type="button"
-                    class="btn btn-sm btn-info"><a class="text-light" href="/">
-                Show All Courses</a>
-            </button>
-            <button type="button"
-                    class="btn btn-sm btn-info"><a class="text-light" href="/">
-                Apply Now</a>
-            </button>
+            <!--<button type="button"-->
+                    <!--class="btn  btn-info"><a class="text-light" href="/">-->
+                <!--Apply Now</a>-->
+            <!--</button>-->
 
-            <span th:if="${course.user.id == user_id}">
-                <button type="button"
-                        class="btn btn-sm btn-success"><a class="text-white"
-                        th:href="@{/update/{id}(id=${course.id})}">Update this
-                    course</a>
-                </button>
-                <button type="button"
-                        class="btn btn-sm btn-danger"><a class="text-white"
-                        th:href="@{/delete/{id}(id=${course.id})}">Delete this
-                    course</a>
-                </button>
+            <br><br>
+            <a class="text-info" href="/" >Show All Courses</a><br>
+
+
+            <!--<span th:if="${course.user.id == user_id}">-->
+            <span sec:authorize="isAuthenticated()">
+              <a class="text-info" th:href="@{/update/{id}(id=${course.id})}">Update this
+                    course</a><br>
+                <a class="text-info"
+                   th:href="@{/delete/{id}(id=${course.id})}">Delete this
+                    course</a><br>
             </span>
         <!--</div>-->
 

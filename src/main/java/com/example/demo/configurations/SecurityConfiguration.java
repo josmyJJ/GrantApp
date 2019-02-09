@@ -1,7 +1,5 @@
 package com.example.demo.configurations;
 
-import com.example.demo.repositories.UserRepository;
-import com.example.demo.services.SSUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,25 +21,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private SSUserDetailsService userDetailsService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception
-    {
-        return new SSUserDetailsService(userRepository);
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/css/**", "/img/**", "/js/**").permitAll()
-                .antMatchers("/", "/h2-console/**", "/register", "/detail/**")
+                .antMatchers("/", "/h2-console/**", "/studentForm/**",
+                        "/detail/**")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -49,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login").permitAll().permitAll()
+                .logoutSuccessUrl("/").permitAll().permitAll()
                 .and()
                 .httpBasic();
         http
@@ -58,11 +45,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable();
     }
 
+    @Bean
+    public static BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth
                 .userDetailsService(userDetailsServiceBean()).passwordEncoder(encoder());
+        auth.inMemoryAuthentication().withUser("admin")
+                .password(passwordEncoder().encode("password")).authorities
+                ("ADMIN");
     }
 }
 

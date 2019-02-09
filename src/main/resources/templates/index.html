@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Index Page</title>
     <th:block th:insert="base :: headstuff"></th:block>
@@ -10,59 +11,50 @@
 <div class="container m-5" align="center">
 
     <!--<div class="container bg-light ">-->
-        <!--<div class="my-5 "></div>-->
-        <!--<div class="space5"></div>-->
+    <!--<div class="my-5 "></div>-->
+    <!--<div class="space5"></div>-->
 
-<h2>America's Promise Grant</h2>
+    <h2>America's Promise Grant</h2>
 
     <div class="space5"></div>
 
     <table>
         <tr>
             <!--<th></th>-->
-            <th> Courses </th>
-            <th> Instructor </th>
-            <th>Credits</th>
+            <th> Courses</th>
             <th>Actions</th>
         </tr>
         <tr th:each="course : ${courses}">
             <td th:text="${course.title}"></td>
-            <td th:text="${course.instructor}"></td>
-            <td th:text="${course.credit}"></td>
             <td>
 
                 <a class="text-info" th:href="@{/detail/{id}(id=${course.id})}">
                     Details</a>
-                <!--<span th:if="${course.user.id == user_id}">-->
-                    <!--<a th:href="@{/update/{id}(id=${course.id})}">Update</a> - -->
-                    <!--&lt;!&ndash;<a th:href="@{/delete/{id}(id=${course.id})}">Delete</a>&ndash;&gt;-->
-                <!--</span>-->
             </td>
         </tr>
     </table>
 
     <div class="space5"></div>
-    <div sec:authorize="isAuthenticated()">
+
+
+    <div>
+         <span sec:authorize="isAuthenticated()">
         <button type="button"
                 class="btn btn-sm btn-info"><a class="text-light"
                                                href="/add">Add A
             Courses</a></button>
+         </span>
+
+        <span sec:authorize="!isAuthenticated()">
+        <button type="button"
+                class="btn  btn-info"><a class="text-light" href="/studentForm">
+            Apply Now</a>
+        </button>
+        </span>
         <div class="space5"></div>
     </div>
 
-
-
-    <!--<button sec:authorize="!isAuthenticated()" type="button"-->
-            <!--class="btn btn-info"><a class="text-light" href="/login">Login</a></button>-->
-    <!--<button sec:authorize="isAuthenticated()" type="button"-->
-            <!--class="btn btn-info"><a class="text-light" href="/logout">Logout</a></button>-->
-    <!--<button sec:authorize="!isAuthenticated()" type="button"-->
-            <!--class="btn btn-info"><a class="text-light" href="/register">Register</a></button>-->
-    <!--<button type="button"-->
-            <!--class="btn btn-info"><a class="text-light" href="/secure">Secure</a></button>-->
-
-        <div class="space25"></div>
-    <!--</div>&lt;!&ndash; end bg-light &ndash;&gt;-->
+    <div class="space25"></div>
 </div><!-- end container -->
 <div th:replace="base :: footer"></div>
 <th:block th:replace="base :: jslinks"></th:block>

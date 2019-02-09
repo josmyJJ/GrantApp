@@ -23,14 +23,6 @@ public class Email {
   private Course course;
 
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "sender_id")
-  private User sender;
-
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "receiver_id")
-  private User receiver;
-
   public long getId() {
     return id;
   }
@@ -71,19 +63,5 @@ public class Email {
     this.course = course;
   }
 
-  public User getSender() {
-    return sender;
-  }
 
-  public void setSender(User sender) {
-    this.sender = sender;
-  }
-
-  public User getReceiver() {
-    return receiver;
-  }
-
-  public void setReceiver(User receiver) {
-    this.receiver = receiver;
-  }
 }

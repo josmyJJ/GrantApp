@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <title>Index Page</title>
+    <th:block th:insert="base :: headstuff"></th:block>
+</head>
+<body>
+
+<nav th:replace="base :: navbar"></nav>
+
+<div class="container m-5" align="center">
+    <h2 class="py-4 text-white">Application form</h2><br>
+
+    <form action="#"
+          th:action="@{/process}"
+          th:object="${student}"
+          method="post">
+
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="md-sm-3"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="name">First name</label>
+                <input type="text" class="form-control" id="name"
+                       placeholder="Enter course title"
+                       th:field="*{firstName}"
+                       required="required"/>
+                <span th:if="${#fields.hasErrors('firstName')}"
+                      th:errors="*{firstName}"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label for="lastName" class="text-left">Last name</label>
+                <input type="text" class="form-control" id="lastName"
+                          placeholder="Description"
+                          th:field="*{lastName}"
+                          required="required"/>
+                <span th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="highestEdu">
+                    Highest Education</label>
+                <input type="text" class="form-control"  id="highestEdu"
+                          placeholder="highestEdu"
+                          th:field="*{highestEdu}"
+                          required="required"/>
+                <span th:if="${#fields.hasErrors('highestEdu')}"
+                      th:errors="*{highestEdu}"></span>
+            </div>
+        </div>
+        <div class="md-sm-3"></div>
+        <!--</div>-->
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-info pull-right">Submit</button>
+        </div>
+        <div class="space2"></div>
+    </form>
+</div> <!-- end container -->
+
+</body>
+</html>

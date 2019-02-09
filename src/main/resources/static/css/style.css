@@ -1,8 +1,8 @@
 body{
     /*background-image: url("../img/background.jpeg");*/
     /*background-size: cover;*/
-    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)),
-    url(../img/course-background.jpg) no-repeat center center;
+    /*background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)),*/
+    background: url(../img/background_img.jpeg) no-repeat center center;
     background-size: cover;
     color: #fff;
 }

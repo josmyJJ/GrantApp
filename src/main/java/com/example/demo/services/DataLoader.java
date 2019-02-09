@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.repositories.RoleRepository;
-import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,11 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-  @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  RoleRepository roleRepository;
+//  @Autowired
+//  UserRepository userRepository;
+//
+//  @Autowired
+//  RoleRepository roleRepository;
 
   @Autowired
   private PasswordEncoder passwordEncoder;

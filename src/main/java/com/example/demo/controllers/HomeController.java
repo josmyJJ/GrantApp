@@ -2,59 +2,29 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.Application;
 import com.example.demo.models.Course;
-import com.example.demo.models.User;
+import com.example.demo.models.Student;
 import com.example.demo.repositories.ApplicationRepository;
 import com.example.demo.repositories.CourseRepository;
-import com.example.demo.repositories.UserRepository;
-import com.example.demo.services.UserService;
+import com.example.demo.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     CourseRepository courseRepository;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     ApplicationRepository applicationRepository;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
-        return "registration";
-    }
-
-    @RequestMapping(value="/register", method=RequestMethod.POST)
-    public String processRegistrationPage(@Valid @ModelAttribute("user") User user,
-                                          BindingResult result, Model model) {
-
-        model.addAttribute("user", user);
-        if (result.hasErrors()) {
-            return "registration";
-        }
-        else {
-            userService.saveUser(user);
-            model.addAttribute("message", "User Account Successfully Created");
-        }
-        return "index";
-    }
-
+    @Autowired
+    StudentRepository studentRepository;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -67,14 +37,6 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping("/secure")
-    public String secure(HttpServletRequest request, Authentication authentication, Principal principal){
-        Boolean isAdmin =  request.isUserInRole("ADMIN");
-        Boolean isUser =  request.isUserInRole("USER");
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = principal.getName();
-        return "secure";
-    }
 
     @GetMapping("/add")
     public String courseForm(Model model){
@@ -87,7 +49,6 @@ public class HomeController {
         if (result.hasErrors()){
             return "courseform";
         }
-        course.setUser(getUser());
         courseRepository.save(course);
         return "redirect:/";
     }
@@ -104,15 +65,30 @@ public class HomeController {
         if(result.hasErrors()){
             return "application_form";
         }
-        application.setUser(getUser());
         applicationRepository.save(application);
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/studentForm")
+    public String getStudentForm(Model model){
+        model.addAttribute("student", new Student());
+        return "studentform";
+    }
+
+    @PostMapping("/processStudentForm")
+    public String processStudentForm(@Valid Student student,
+                                     BindingResult result){
+        if(result.hasErrors()){
+            return "studentform";
+        }
+        studentRepository.save(student);
         return "redirect:/";
     }
 
     @RequestMapping("/detail/{id}")
     public String showCourse(@PathVariable("id") long id, Model model){
         model.addAttribute("course", courseRepository.findById(id).get());
-//        model.addAttribute("user_id", getUser().getId());
         return "show";
     }
 
@@ -126,13 +102,6 @@ public class HomeController {
     public String delCourse(@PathVariable("id") long id){
         courseRepository.deleteById(id);
         return "redirect:/";
-    }
-
-    private User getUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentusername = authentication.getName();
-        User user = userRepository.findByUsername(currentusername);
-        return user;
     }
 
 }
