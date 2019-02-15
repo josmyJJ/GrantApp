@@ -8,58 +8,144 @@
 
 <nav th:replace="base :: navbar"></nav>
 
-<div class="container m-5" align="center">
-    <h2 class="py-4 text-white">Application form</h2><br>
-
-    <form action="#"
-          th:action="@{/process}"
-          th:object="${student}"
-          method="post">
-
+<article class="container m-5 bg-light pl-5">
+    <h2 class="py-4 text-dark">America's Promise Grant Program Boot Camps
+        Application Form</h2><br>
+    <form action="#" th:action="@{/process}" th:object="${student}" method="post">
         <input type="hidden" th:field="*{id}" />
+        <section class="md-md-3"></section>
 
-        <div class="md-sm-3"></div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="name">First name</label>
+        <section class="col-md-6">
+            <section class="form-group">
+                <label for="name" class="text-dark">Which Boot Camp(s) would
+                    you like to apply to?</label><br>
+                <input type="checkbox" name="cyber"> Cyber Boot Camp <br>
+                <input type="checkbox" name="javaWeb"> Java Web Developer
+                Boot Camp <br>
+                <input type="checkbox" name="data"> Data Analytics Boot Camp
+                <br>
+                <input type="checkbox" name="javaMini"> Java Mini Boot Camp <br>
+                <input type="checkbox" name="mobile"> Mobile Boot Camp
+                (Summer Only) <br>
+            </section>
+
+            <section class="form-group">
+                <label for="name" class="text-dark">First name</label>
                 <input type="text" class="form-control" id="name"
-                       placeholder="Enter course title"
                        th:field="*{firstName}"
                        required="required"/>
                 <span th:if="${#fields.hasErrors('firstName')}"
                       th:errors="*{firstName}"></span>
-            </div>
-
-
-            <div class="form-group">
-                <label for="lastName" class="text-left">Last name</label>
+            </section>
+            <section class="form-group">
+                <label for="lastName" class="text-dark">Last name</label>
                 <input type="text" class="form-control" id="lastName"
-                          placeholder="Description"
                           th:field="*{lastName}"
                           required="required"/>
                 <span th:if="${#fields.hasErrors('lastName')}"
                       th:errors="*{lastName}"></span>
-            </div>
-
-            <div class="form-group">
-                <label for="highestEdu">
-                    Highest Education</label>
-                <input type="text" class="form-control"  id="highestEdu"
-                          placeholder="highestEdu"
-                          th:field="*{highestEdu}"
-                          required="required"/>
-                <span th:if="${#fields.hasErrors('highestEdu')}"
-                      th:errors="*{highestEdu}"></span>
-            </div>
-        </div>
-        <div class="md-sm-3"></div>
+            </section>
+            <section class="form-group">
+                <label for="email" class="text-dark">Email</label>
+                <input type="text" class="form-control" id="email">
+                       <!--th:field="*{lastName}"-->
+                      <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('lastName')}"-->
+                      <!--th:errors="*{lastName}"></span>-->
+            </section>
+            <section class="form-group">
+                <label for="phone" class="text-dark">Phone number</label>
+                <input type="text" class="form-control" id="phone">
+                <!--th:field="*{lastName}"-->
+                <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('lastName')}"-->
+                <!--th:errors="*{lastName}"></span>-->
+            </section>
+            <section class="form-group">
+                <label>Are you legally authorized to work in the United States?
+                </label><br>
+                <input type="radio" name="yes" value="yes"> Yes<br>
+                <input type="radio" name="no" value="no"> No<br>
+            </section>
+            <section class="form-group">
+                <label>Veteran Status
+                </label><br>
+                <input type="radio" name="yes" value="yes">I am NOT a
+                veteran<br>
+                <input type="radio" name="no" value="no">I am a veteran<br>
+                <input type="radio" name="spouse" value="spouse">I am the spouse
+                of a veteran<br>
+            </section>
+            <section class="form-group">
+                <label>What is your employment status?
+                </label><br>
+                <input type="radio" name="yes" value="yes"> Unemployed<br>
+                <input type="radio" name="no" value="no"> Underemployed
+                (making less than $42,000/year)<br>
+            </section>
+            <section class="form-group">
+                <label for="school" class="text-dark">Name of school you
+                    graduated from or are currently attending</label>
+                <input type="text" class="form-control"  id="school">
+                       <!--th:field="*{highestEdu}"-->
+                       <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('highestEdu')}"-->
+                      <!--th:errors="*{highestEdu}"></span>-->
+            </section>
+            <section class="form-group">
+                <label for="location" class="text-dark">Location of your school
+                </label>
+                <input type="text" class="form-control"  id="location">
+                <!--th:field="*{highestEdu}"-->
+                <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('highestEdu')}"-->
+                <!--th:errors="*{highestEdu}"></span>-->
+            </section>
+            <section class="form-group">
+                <label>Highest degree earned
+                </label><br>
+                <input type="radio" name="yes" value="yes">AA degree<br>
+                <input type="radio" name="no" value="no">Bachelors Degree<br>
+                <input type="radio" name="spouse" value="spouse">Masters Degree<br>
+                <input type="radio" name="spouse" value="spouse">PhD.<br>
+            </section>
+            <section class="form-group">
+                <label for="major" class="text-dark">Your major
+                </label>
+                <input type="text" class="form-control"  id="major">
+                <!--th:field="*{highestEdu}"-->
+                <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('highestEdu')}"-->
+                <!--th:errors="*{highestEdu}"></span>-->
+            </section>
+            <section class="form-group">
+                <label for="graduation" class="text-dark">Graduation Date or
+                    Anticipated Graduation Date</label>
+                <input type="text" class="form-control"  id="graduation">
+                <!--th:field="*{highestEdu}"-->
+                <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('highestEdu')}"-->
+                <!--th:errors="*{highestEdu}"></span>-->
+            </section>
+            <section class="form-group">
+                <label for="background" class="text-dark">Use this text box to
+                    briefly explain your technical background. And ask questions.</label>
+                <textarea type="text" rows="4" cols="50" class="form-control"
+                          id="background"></textarea>
+                <!--th:field="*{highestEdu}"-->
+                <!--required="required"/>-->
+                <!--<span th:if="${#fields.hasErrors('highestEdu')}"-->
+                <!--th:errors="*{highestEdu}"></span>-->
+            </section>
+        </section>
+        <section class="md-sm-3"></section>
         <!--</div>-->
-        <div class="col-md-12">
+        <section class="col-md-12">
             <button type="submit" class="btn btn-info pull-right">Submit</button>
-        </div>
-        <div class="space2"></div>
+        </section>
+        <div class="space5"></div>
     </form>
-</div> <!-- end container -->
+</article> <!-- end container -->
 
 </body>
 </html>

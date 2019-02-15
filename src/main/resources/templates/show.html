@@ -7,45 +7,26 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 
-<div class="container m-5"  align="center">
-
-    <!--<div class="container bg-light ">-->
-        <!--<div class="my-5 "></div>-->
-
-        <div class="my-4 py-5" align="center">
-
-            <h2 th:inline="text">[[${course.title}]] Details</h2>
-            <div class="space5"></div>
-
-
-            Title :<span th:text="${course.title}" ></span><br />
-            Description :<p th:text="${course.description}" ></p>
-
-            <div class="space2"></div>
-
-            <!--<button type="button"-->
-                    <!--class="btn  btn-info"><a class="text-light" href="/">-->
-                <!--Apply Now</a>-->
-            <!--</button>-->
-
-            <br><br>
-            <a class="text-info" href="/" >Show All Courses</a><br>
-
-
-            <!--<span th:if="${course.user.id == user_id}">-->
-            <span sec:authorize="isAuthenticated()">
-              <a class="text-info" th:href="@{/update/{id}(id=${course.id})}">Update this
+<article class="container m-5 bg-light" >
+    <section class="my-4 py-5 pl-5">
+        <h2 th:inline="text">[[${course.title}]] Details</h2>
+        <section class="space5"></section>
+        <h4 th:inline="text">Title - [[${course.title}]] </h4>
+        <h4>Description</h4>
+        <p th:text="${course.description}" ></p>
+        <section class="space2"></section>
+        <br><br>
+        <a class="text-info" href="/" >Show All Courses</a><br>
+        <!--<span th:if="${course.user.id == user_id}">-->
+        <span sec:authorize="isAuthenticated()">
+            <a class="text-info" th:href="@{/update/{id}(id=${course.id})}">Update this
                     course</a><br>
-                <a class="text-info"
-                   th:href="@{/delete/{id}(id=${course.id})}">Delete this
+            <a class="text-info" th:href="@{/delete/{id}(id=${course.id})}">Delete this
                     course</a><br>
-            </span>
-        <!--</div>-->
-
-            <div class="space10"></div>
-            <div class="space5"></div>
-</div>
-</div>
+        </span>
+        <section class="space10"></section>
+    </section>
+</article>
 
 <nav th:replace="base :: footer"></nav>
 <th:block th:replace="base :: jslinks"></th:block>

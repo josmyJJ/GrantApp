@@ -8,54 +8,40 @@
 <body>
 <nav th:replace="base :: navbar"></nav>
 
-<div class="container m-5" align="center">
-
-    <!--<div class="container bg-light ">-->
-    <!--<div class="my-5 "></div>-->
-    <!--<div class="space5"></div>-->
-
-    <h2>America's Promise Grant</h2>
-
-    <div class="space5"></div>
-
-    <table>
-        <tr>
-            <!--<th></th>-->
-            <th> Courses</th>
-            <th>Actions</th>
-        </tr>
-        <tr th:each="course : ${courses}">
-            <td th:text="${course.title}"></td>
-            <td>
-
-                <a class="text-info" th:href="@{/detail/{id}(id=${course.id})}">
-                    Details</a>
-            </td>
-        </tr>
-    </table>
-
-    <div class="space5"></div>
-
-
-    <div>
-         <span sec:authorize="isAuthenticated()">
+<article class="container m-5 bg-light pl-5">
+    <section>
+        <section class="space5"></section>
+        <h2 class="text-center">America's Promise Grant Program</h2>
+        <section class="space5"></section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Courses</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.title}"></td>
+                <td>
+                    <a class="text-info" th:href="@{/detail/{id}(id=${course.id})}">
+                        Details</a>
+                </td>
+            </tr>
+        </table>
+        <section class="space2"></section>
+        <span sec:authorize="isAuthenticated()">
         <button type="button"
-                class="btn btn-sm btn-info"><a class="text-light"
-                                               href="/add">Add A
-            Courses</a></button>
-         </span>
-
+                class="btn btn-info"><a class="text-light" href="/add">Add A
+            Courses</a></button></span>
         <span sec:authorize="!isAuthenticated()">
         <button type="button"
-                class="btn  btn-info"><a class="text-light" href="/studentForm">
+                class="btn btn-info"><a class="text-light" href="/studentForm">
             Apply Now</a>
         </button>
         </span>
         <div class="space5"></div>
-    </div>
-
-    <div class="space25"></div>
-</div><!-- end container -->
+    </section>
+</article><!-- end container -->
 <div th:replace="base :: footer"></div>
 <th:block th:replace="base :: jslinks"></th:block>
 </body>
